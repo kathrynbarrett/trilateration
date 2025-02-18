@@ -4,8 +4,8 @@ import numpy as np
 
 def deltat_to_theta(deltat,baseline):
     rad = deltat * 3e8/(2*baseline)
-    mas = rad * (180/np.pi) * 3600 * 1000
-    return mas
+    arcsec = rad * (180/np.pi) * 3600
+    return arcsec
 
 plt.rc('font',**{'family':'serif','serif':['Times']})
 plt.rcParams.update({
@@ -99,41 +99,42 @@ for t_res in [8,10,12]: # loop over timing resolutions
 plt.yscale('log')
 plt.xscale('log')
 plt.xlabel('Return photon rate / s$^{-1}$')
-plt.ylabel('$\\theta_{\\mathrm{min}}$ / mas')
-plt.axhline(0.3, color='black', linestyle='dotted')
+plt.ylabel('$\\theta_{\\mathrm{min}}$ / arcsec')
+#plt.axhline(0.0003, color='black', linestyle='dotted')
 plt.axvline(1e7, color='black', linestyle='dotted')
 #plt.fill_between([0,1e7], 0, 10e7, color='gray', alpha=0.3)
-plt.fill_between([10**3, 10**13], 0, 0.3, color='black', alpha=0.9)
+plt.fill_between([10**3, 10**13], 0, 3e-5, color='black', alpha=0.9)
 plt.xlim(5 * 10**3, 2 * 10**10)
-plt.ylim(0, 0.2 *10e6)
+plt.ylim(0, 0.2 *10e4)
+plt.yticks([10**(-4), 10**(-2), 10**(0), 10**(2), 10**(4)])
 plt.legend(title = 'Timing resolution / s', loc='upper right', bbox_to_anchor=(0.35, 0.4))
 plt.grid()
 
 plt.tick_params(axis='both', which='both', direction='out', length=6, width=0.5, colors='black', grid_color='gray', grid_alpha=0.5)
 plt.savefig('peak_uncertainty.pdf', bbox_inches='tight')
-#plt.show()
+plt.show()
 
 
 exit()
 
 
 x07 = data07[:,0] * frequency 
-y07 = data07[:,1] * 3e8/2000 * (180/np.pi) * 3600 * 1000
+y07 = data07[:,1] * 3e8/2000 * (180/np.pi) * 3600 
 
 x08 = data08[:,0] * frequency
-y08 = data08[:,1] * 3e8/2000 * (180/np.pi) * 3600 * 1000
+y08 = data08[:,1] * 3e8/2000 * (180/np.pi) * 3600 
 
 x09 = data09[:,0] * frequency
-y09 = data09[:,1] * 3e8/2000 * (180/np.pi) * 3600 * 1000
+y09 = data09[:,1] * 3e8/2000 * (180/np.pi) * 3600 
 
 x10 = data10[:,0] * frequency
-y10 = data10[:,1] * 3e8/2000 * (180/np.pi) * 3600 * 1000
+y10 = data10[:,1] * 3e8/2000 * (180/np.pi) * 3600
 
 #x11 = data11[:,0] * frequency
-#y11 = data11[:,1] * 3e8/2000 * (180/np.pi) * 3600 * 1000
+#y11 = data11[:,1] * 3e8/2000 * (180/np.pi) * 3600
 
 #x12 = data12[:,0] * frequency
-#y12 = data12[:,1] * 3e8/2000 * (180/np.pi) * 3600 * 1000
+#y12 = data12[:,1] * 3e8/2000 * (180/np.pi) * 3600
 
 
 plt.figure()
@@ -147,9 +148,9 @@ plt.plot(x10, y10, label='1e-10', marker='o', ms = 3)
 plt.xscale('log')
 plt.yscale('log')
 plt.xlabel('Return photons / s')
-plt.ylabel('$\\theta_{min}$ / mas')
+plt.ylabel('$\\theta_{min}$ / \'\'')
 plt.axvline(1e7, color='black', linestyle='dashed')
-plt.axhline(0.3, color='black', linestyle='dashed')
+plt.axhline(0.0003, color='black', linestyle='dashed')
 plt.legend(title = 'Timing resolution / s')
 plt.grid()
 plt.savefig('peak_uncertainty.pdf')
